@@ -143,7 +143,7 @@ def _get_shared_data():  # pragma: no cover
         )
         psx_indices = _to_np_array(mp_arr=mp_params["psx_indices"])
         psx_indptr = _to_np_array(mp_arr=mp_params["psx_indptr"])
-        psx = scipy.sparse.csr_matrix(
+        psx = scipy.sparse.csc_matrix(
             (psx_data, psx_indices, psx_indptr), shape=mp_params["psx_shape"]
         )
     multi_label = mp_params["multi_label"]
@@ -427,7 +427,7 @@ def get_noise_indices(
         _s_counts = RawArray("I", s_counts)
         _prune_count_matrix = RawArray("I", prune_count_matrix.flatten())
         if scipy.sparse.issparse(psx):
-            psx = psx.tocsr()
+            psx = psx.tocsc()
             _psx = RawArray("f", psx.data)
             _psx_indices = RawArray("I", psx.indices)
             _psx_indptr = RawArray("I", psx.indptr)
